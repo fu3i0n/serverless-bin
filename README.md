@@ -1,4 +1,5 @@
 # serverless-bin
+
 ServerlessBin is a [Cloudflare Workers](https://workers.cloudflare.com) powered [hastebin server](https://hastebin.com).
 It has the exact same endpoints and works perfectly with hastebin frontend.
 
@@ -10,7 +11,9 @@ You can see a public instance of this running at
 [paste.iloveopensource.dev](https://paste.iloveopensource.dev) or [paste.thearcadia.xyz](https://paste.thearcadia.xyz).
 
 # Deployment
+
 To deploy it to your own instance, do the following:
+
 - Clone the repository
 - Create a KV inside workers dashboard
 - Deploy the page from the cloned repository
