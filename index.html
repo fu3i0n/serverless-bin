@@ -1,52 +1,13 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <title>DaisyPaste</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#e879f9" />
-    <meta
-      name="description"
-      content="DaisyPaste - Fast, modern, and beautiful pastebin service with syntax highlighting"
-    />
-    <meta
-      name="keywords"
-      content="pastebin, code sharing, syntax highlighting, DaisyPaste, paste, code"
-    />
-    <meta name="author" content="DaisyPaste" />
-    <meta name="robots" content="noindex,nofollow" />
+    <link rel="stylesheet" type="text/css" href="application.css" />
+    <link rel="stylesheet" type="text/css" href="syntax-theme.css" />
 
-    <!-- Performance and SEO -->
-    <meta name="generator" content="DaisyPaste" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <!-- Preconnect to external domains for faster loading -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
-
-    <!-- Web App Manifest -->
-    <link rel="manifest" href="/manifest.json" />
-
-    <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png" />
-
-    <!-- Windows Tile -->
-    <meta name="msapplication-TileColor" content="#e879f9" />
-    <meta name="msapplication-TileImage" content="/icons/icon-144.png" />
-
-    <title>DaisyPaste</title>
-
-    <!-- Stylesheets with preload for critical CSS -->
-    <link
-      rel="preload"
-      href="application.css"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="application.css" /></noscript>
-    <link rel="stylesheet" href="syntax-theme.css" />
-
-    <!-- Scripts with improved loading -->
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -57,17 +18,18 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
       crossorigin="anonymous"
-      referrerpolicy="no-referrer"
       data-cfasync="false"
     ></script>
     <script type="text/javascript" src="application.js" data-cfasync="false"></script>
+
+    <meta name="robots" content="noindex,nofollow" />
 
     <script type="text/javascript" data-cfasync="false">
       var app = null;
       // Handle pops
       var handlePop = function (evt) {
         var path = evt.target.location.pathname;
-        if (path === "/") {
+        if (path === '/') {
           app.newDocument(true);
         } else {
           app.loadDocument(path.substring(1));
@@ -85,36 +47,26 @@
       }, 1000);
       // Construct app and load initial path
       $(function () {
-        app = new haste("DaisyPaste", { twitter: true });
+        app = new haste('DaisyPaste', { twitter: true });
         handlePop({ target: window });
       });
     </script>
   </head>
 
   <body>
-    <!-- Loading indicator -->
-    <div id="loading" class="loading-spinner" aria-hidden="true">
-      <div class="spinner"></div>
-    </div>
-
-    <!-- Toast notifications -->
     <ul id="messages"></ul>
 
-    <!-- Main toolbar -->
     <div id="key">
       <div id="pointer" style="display: none"></div>
       <div id="box1">
-        <a href="/" class="logo" aria-label="DaisyPaste Home">
-          <span class="logo-text">DaisyPaste</span>
-        </a>
+        <a href="/" class="logo">DaisyPaste</a>
       </div>
-
       <div id="box2">
-        <button class="save function button-picture">Save</button>
-        <button class="new function button-picture">New</button>
-        <button class="duplicate function button-picture">Duplicate & Edit</button>
-        <button class="raw function button-picture">Just Text</button>
-        <button class="twitter function button-picture">Twitter</button>
+        <button class="save function button-picture">💾 Save</button>
+        <button class="new function button-picture">📄 New</button>
+        <button class="duplicate function button-picture">📋 Duplicate</button>
+        <button class="raw function button-picture">📝 Raw</button>
+        <button class="twitter function button-picture">🐦 Share</button>
       </div>
       <div id="box3" style="display: none">
         <div class="label"></div>
@@ -122,9 +74,8 @@
       </div>
     </div>
 
-    <!-- Main content area -->
-    <div id="linenos">&gt;</div>
+    <div id="linenos"></div>
     <pre id="box" style="display: none" class="hljs" tabindex="0"><code></code></pre>
-    <textarea spellcheck="false"></textarea>
+    <textarea spellcheck="false" style="display: none"></textarea>
   </body>
 </html>
