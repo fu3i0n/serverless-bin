@@ -26,32 +26,26 @@ function detectContentType(content) {
 
 export async function onRequest(context) {
   const startTime = Date.now();
-  
+
   try {
     const { id } = context.params;
-    
+
     // Validate document ID format
     if (!id || !isValidDocumentId(id)) {
-      return new Response(
-        'Invalid document ID format',
-        {
-          status: 400,
-          headers: { 'Content-Type': 'text/plain' }
-        }
-      );
+      return new Response('Invalid document ID format', {
+        status: 400,
+        headers: { 'Content-Type': 'text/plain' },
+      });
     }
 
     // Retrieve document from KV store
     const storedData = await context.env.FILES_KV.get(id);
-    
+
     if (!storedData) {
-      return new Response(
-        'Document not found',
-        {
-          status: 404,
-          headers: { 'Content-Type': 'text/plain' }
-        }
-      );
+      return new Response('Document not found', {
+        status: 404,
+        headers: { 'Content-Type': 'text/plain' },
+      });
     }
 
     let content;
@@ -64,7 +58,7 @@ export async function onRequest(context) {
       metadata = {
         size: documentData.size,
         created: documentData.createdAt,
-        version: documentData.version
+        version: documentData.version,
       };
     } catch (e) {
       // Legacy format - plain text
@@ -72,15 +66,17 @@ export async function onRequest(context) {
       metadata = {
         size: new Blob([content]).size,
         created: null,
-        version: '1.0'
+        version: '1.0',
       };
     }
 
     // Detect content type for proper rendering
     const contentType = detectContentType(content);
-    
+
     // Log access
-    console.log(`Raw document accessed: ${id} (${metadata.size} bytes) in ${Date.now() - startTime}ms`);
+    console.log(
+      `Raw document accessed: ${id} (${metadata.size} bytes) in ${Date.now() - startTime}ms`
+    );
 
     // Return raw content with appropriate headers
     return new Response(content, {
@@ -94,22 +90,18 @@ export async function onRequest(context) {
         'X-Response-Time': `${Date.now() - startTime}ms`,
         // Security headers
         'X-Content-Type-Options': 'nosniff',
-        'X-Frame-Options': 'SAMEORIGIN'
-      }
+        'X-Frame-Options': 'SAMEORIGIN',
+      },
     });
-
   } catch (error) {
     console.error('Raw document retrieval error:', error);
-    
-    return new Response(
-      'Internal server error',
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'text/plain',
-          'X-Response-Time': `${Date.now() - startTime}ms`
-        }
-      }
-    );
+
+    return new Response('Internal server error', {
+      status: 500,
+      headers: {
+        'Content-Type': 'text/plain',
+        'X-Response-Time': `${Date.now() - startTime}ms`,
+      },
+    });
   }
 }

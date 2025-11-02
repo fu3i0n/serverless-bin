@@ -9,37 +9,37 @@ function isValidDocumentId(id) {
 
 export async function onRequest(context) {
   const startTime = Date.now();
-  
+
   try {
     const { id } = context.params;
-    
+
     // Validate document ID format
     if (!id || !isValidDocumentId(id)) {
       return new Response(
         JSON.stringify({
           error: 'Invalid document ID format',
-          code: 'INVALID_DOCUMENT_ID'
+          code: 'INVALID_DOCUMENT_ID',
         }),
         {
           status: 400,
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json' },
         }
       );
     }
 
     // Retrieve document from KV store
     const storedData = await context.env.FILES_KV.get(id);
-    
+
     if (!storedData) {
       return new Response(
         JSON.stringify({
           error: 'Document not found',
           code: 'DOCUMENT_NOT_FOUND',
-          id: id
+          id: id,
         }),
         {
           status: 404,
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json' },
         }
       );
     }
@@ -58,12 +58,14 @@ export async function onRequest(context) {
         content: content,
         createdAt: null,
         size: new Blob([content]).size,
-        version: '1.0'
+        version: '1.0',
       };
     }
 
     // Log access for monitoring
-    console.log(`Document accessed: ${id} (${documentData.size || content.length} bytes) in ${Date.now() - startTime}ms`);
+    console.log(
+      `Document accessed: ${id} (${documentData.size || content.length} bytes) in ${Date.now() - startTime}ms`
+    );
 
     // Return document data
     return new Response(
@@ -73,34 +75,33 @@ export async function onRequest(context) {
         metadata: {
           size: documentData.size || new Blob([content]).size,
           created: documentData.createdAt,
-          version: documentData.version || '1.0'
-        }
+          version: documentData.version || '1.0',
+        },
       }),
       {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
           'Cache-Control': 'public, max-age=86400', // Cache for 24 hours
-          'X-Response-Time': `${Date.now() - startTime}ms`
-        }
+          'X-Response-Time': `${Date.now() - startTime}ms`,
+        },
       }
     );
-
   } catch (error) {
     console.error('Document retrieval error:', error);
-    
+
     return new Response(
       JSON.stringify({
         error: 'Internal server error',
         code: 'DOCUMENT_RETRIEVAL_FAILED',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       }),
       {
         status: 500,
         headers: {
           'Content-Type': 'application/json',
-          'X-Response-Time': `${Date.now() - startTime}ms`
-        }
+          'X-Response-Time': `${Date.now() - startTime}ms`,
+        },
       }
     );
   }
