@@ -1,55 +1,66 @@
 # Security Headers Configuration for DaisyPaste
+
 # Add these headers in Cloudflare Pages Settings → Functions → Custom Headers
 
-/*
-  # Content Security Policy - Allow Cloudflare analytics
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
-  
-  # Prevent XSS attacks
-  X-Content-Type-Options: nosniff
-  X-XSS-Protection: 1; mode=block
-  
-  # Prevent clickjacking
-  X-Frame-Options: SAMEORIGIN
-  
-  # Referrer policy
-  Referrer-Policy: strict-origin-when-cross-origin
-  
-  # Permissions policy
-  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()
-  
-  # HSTS (only enable if using HTTPS)
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  
-  # Cache control for HTML
-  Cache-Control: no-cache, no-store, must-revalidate
-  
+/\*
+
+# Content Security Policy - Allow Cloudflare analytics
+
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
+
+# Prevent XSS attacks
+
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+
+# Prevent clickjacking
+
+X-Frame-Options: SAMEORIGIN
+
+# Referrer policy
+
+Referrer-Policy: strict-origin-when-cross-origin
+
+# Permissions policy
+
+Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()
+
+# HSTS (only enable if using HTTPS)
+
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# Cache control for HTML
+
+Cache-Control: no-cache, no-store, must-revalidate
+
 # Static assets caching
+
 /application.css
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
 /application.js
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
 /syntax-theme.css
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
 /sw.js
-  Cache-Control: public, max-age=3600, must-revalidate
+Cache-Control: public, max-age=3600, must-revalidate
 
 /manifest.json
-  Cache-Control: public, max-age=86400
+Cache-Control: public, max-age=86400
 
 # API endpoints
-/documents/*
-  Cache-Control: public, max-age=86400
-  X-Content-Type-Options: nosniff
 
-/raw/*
-  Cache-Control: public, max-age=86400
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
+/documents/\*
+Cache-Control: public, max-age=86400
+X-Content-Type-Options: nosniff
+
+/raw/\*
+Cache-Control: public, max-age=86400
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
 
 /health
-  Cache-Control: no-cache, no-store, must-revalidate
-  X-Robots-Tag: noindex
+Cache-Control: no-cache, no-store, must-revalidate
+X-Robots-Tag: noindex
