@@ -207,6 +207,25 @@ class DaisyPaste {
     }
   }
 
+  // Setup auto-save functionality
+  setupAutoSave() {
+    if (!this.options.autoSave) return;
+    
+    let autoSaveTimeout;
+    const autoSaveDelay = this.options.autoSaveDelay || 2000;
+    
+    if (this.elements.textarea) {
+      this.elements.textarea.addEventListener('input', () => {
+        clearTimeout(autoSaveTimeout);
+        autoSaveTimeout = setTimeout(() => {
+          if (this.currentDocument && this.elements.textarea.value.trim()) {
+            this.handleAction('save');
+          }
+        }, autoSaveDelay);
+      });
+    }
+  }
+
   // Setup accessibility features
   setupAccessibility() {
     // Add ARIA labels and roles
