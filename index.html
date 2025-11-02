@@ -48,74 +48,45 @@
 
     <!-- Scripts with improved loading -->
     <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      crossorigin="anonymous"
+      data-cfasync="false"
+    ></script>
+    <script
+      type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
       data-cfasync="false"
     ></script>
-    <script src="application.js" data-cfasync="false"></script>
+    <script type="text/javascript" src="application.js" data-cfasync="false"></script>
 
-    <script data-cfasync="false">
-      // Modern initialization script for DaisyPaste
+    <script type="text/javascript" data-cfasync="false">
       var app = null;
-
-      // Handle popstate events for navigation
+      // Handle pops
       var handlePop = function (evt) {
         var path = evt.target.location.pathname;
-        if (path === '/') {
-          if (app) app.newDocument(true);
+        if (path === "/") {
+          app.newDocument(true);
         } else {
-          if (app) app.loadDocument(path.substring(1));
+          app.loadDocument(path.substring(1));
         }
       };
-
-      // Initialize app when DOM is ready
-      document.addEventListener('DOMContentLoaded', function () {
-        // Wait for hljs to be available
-        var initApp = function () {
-          if (typeof hljs === 'undefined') {
-            setTimeout(initApp, 50);
-            return;
-          }
-
-          // Register service worker for offline capabilities
-          if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-              .register('/sw.js')
-              .then(function (registration) {
-                console.log('Service Worker registered:', registration);
-              })
-              .catch(function (error) {
-                console.warn('Service Worker registration failed:', error);
-              });
-          }
-
-          // Initialize DaisyPaste application
+      // Set up the pop state to handle loads
+      setTimeout(function () {
+        window.onpopstate = function (evt) {
           try {
-            app = new DaisyPaste('DaisyPaste', {
-              twitter: true,
-              theme: 'gradient-purple-pink',
-              autoSave: false,
-              autoSaveDelay: 2000,
-            });
-            handlePop({ target: window });
-
-            // Set up popstate handler after initial load
-            setTimeout(function () {
-              window.addEventListener('popstate', function (evt) {
-                try {
-                  handlePop(evt);
-                } catch (err) {
-                  console.warn('Navigation error:', err);
-                }
-              });
-            }, 100);
-          } catch (error) {
-            console.error('Failed to initialize DaisyPaste:', error);
+            handlePop(evt);
+          } catch (err) {
+            /* not loaded yet */
           }
         };
-
-        initApp();
+      }, 1000);
+      // Construct app and load initial path
+      $(function () {
+        app = new haste("DaisyPaste", { twitter: true });
+        handlePop({ target: window });
       });
     </script>
   </head>
@@ -127,129 +98,33 @@
     </div>
 
     <!-- Toast notifications -->
-    <div id="messages" class="toast-container" role="alert" aria-live="polite"></div>
+    <ul id="messages"></ul>
 
     <!-- Main toolbar -->
-    <header id="toolbar" class="toolbar" role="banner">
-      <div class="toolbar-section brand">
+    <div id="key">
+      <div id="pointer" style="display: none"></div>
+      <div id="box1">
         <a href="/" class="logo" aria-label="DaisyPaste Home">
           <span class="logo-text">DaisyPaste</span>
         </a>
       </div>
 
-      <nav class="toolbar-section actions">
-        <button
-          class="btn btn-primary save function"
-          data-action="save"
-          aria-label="Save document (Ctrl+S)"
-        >
-          <span class="btn-icon">💾</span>
-          <span class="btn-text">Save</span>
-        </button>
-        <button
-          class="btn btn-secondary new function"
-          data-action="new"
-          aria-label="New document (Ctrl+N)"
-        >
-          <span class="btn-icon">📄</span>
-          <span class="btn-text">New</span>
-        </button>
-        <button
-          class="btn btn-secondary duplicate function"
-          data-action="duplicate"
-          aria-label="Duplicate & Edit (Ctrl+D)"
-        >
-          <span class="btn-icon">📋</span>
-          <span class="btn-text">Duplicate</span>
-        </button>
-        <button
-          class="btn btn-secondary raw function"
-          data-action="raw"
-          aria-label="View raw text (Ctrl+Shift+R)"
-        >
-          <span class="btn-icon">📝</span>
-          <span class="btn-text">Raw</span>
-        </button>
-        <button
-          class="btn btn-secondary twitter function"
-          data-action="twitter"
-          aria-label="Share on Twitter (Ctrl+Shift+T)"
-        >
-          <span class="btn-icon">🐦</span>
-          <span class="btn-text">Share</span>
-        </button>
-      </nav>
-
-      <!-- Tooltip for button descriptions -->
-      <div id="tooltip" class="tooltip" role="tooltip" aria-hidden="true">
-        <div class="tooltip-content">
-          <div class="tooltip-label"></div>
-          <div class="tooltip-shortcut"></div>
-        </div>
-        <div class="tooltip-arrow"></div>
+      <div id="box2">
+        <button class="save function button-picture">Save</button>
+        <button class="new function button-picture">New</button>
+        <button class="duplicate function button-picture">Duplicate & Edit</button>
+        <button class="raw function button-picture">Just Text</button>
+        <button class="twitter function button-picture">Twitter</button>
       </div>
-    </header>
-
-    <!-- Main content area -->
-    <main class="editor-container">
-      <!-- Line numbers -->
-      <div id="linenos" class="line-numbers" aria-hidden="true">&gt;</div>
-
-      <!-- Code display -->
-      <pre
-        id="box"
-        class="code-display hljs"
-        style="display: none"
-        tabindex="0"
-        role="textbox"
-        aria-label="Code display"
-      ><code></code></pre>
-
-      <!-- Text editor -->
-      <textarea
-        id="editor"
-        class="code-editor"
-        spellcheck="false"
-        placeholder="Start typing or paste your code here..."
-        aria-label="Code editor"
-        autocomplete="off"
-        autocorrect="off"
-        autocapitalize="off"
-        autofocus
-      ></textarea>
-    </main>
-
-    <!-- Keyboard shortcuts help (hidden by default) -->
-    <div id="shortcuts-help" class="shortcuts-panel" aria-hidden="true">
-      <div class="shortcuts-content">
-        <h3>Keyboard Shortcuts</h3>
-        <div class="shortcuts-list">
-          <div class="shortcut-item">
-            <kbd>Ctrl + S</kbd>
-            <span>Save document</span>
-          </div>
-          <div class="shortcut-item">
-            <kbd>Ctrl + N</kbd>
-            <span>New document</span>
-          </div>
-          <div class="shortcut-item">
-            <kbd>Ctrl + D</kbd>
-            <span>Duplicate & edit</span>
-          </div>
-          <div class="shortcut-item">
-            <kbd>Ctrl + Shift + R</kbd>
-            <span>View raw text</span>
-          </div>
-          <div class="shortcut-item">
-            <kbd>Ctrl + Shift + T</kbd>
-            <span>Share on Twitter</span>
-          </div>
-          <div class="shortcut-item">
-            <kbd>?</kbd>
-            <span>Show/hide shortcuts</span>
-          </div>
-        </div>
+      <div id="box3" style="display: none">
+        <div class="label"></div>
+        <div class="shortcut"></div>
       </div>
     </div>
+
+    <!-- Main content area -->
+    <div id="linenos">&gt;</div>
+    <pre id="box" style="display: none" class="hljs" tabindex="0"><code></code></pre>
+    <textarea spellcheck="false"></textarea>
   </body>
 </html>
