@@ -1,18 +1,4 @@
-# DaisyPaste Robots.txt
-# Pastebin service - allow indexing of main pages but protect documents
-
 User-agent: *
-Allow: /
-Allow: /manifest.json
-Allow: /sw.js
-Disallow: /documents/
-Disallow: /raw/
-Disallow: /functions/
-
-# Sitemap location (if you create one)
-# Sitemap: https://your-domain.com/sitemap.xml
-
-# Crawl delay to be respectful
-Crawl-delay: 1*
+Disallow: /*
 Allow: /?okparam=
 Allow: /$
