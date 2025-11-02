@@ -1,5 +1,5 @@
 body {
-	background: #1a0a1e;
+	background: #002B36;
 	padding: 20px 50px;
 	margin: 0px;
 }
@@ -62,11 +62,11 @@ textarea {
 #box1 {
 	padding: 5px;
 	text-align: center;
-	background: #2d1b3d;
+	background: #00222b;
 }
 
 #box2 {
-	background: #4a2859;
+	background: #08323c;
 	font-size: 0px;
 	padding: 0px 5px;
 }
@@ -112,7 +112,7 @@ textarea {
 }
 
 #box3, #messages li {
-	background: #6b3d7a;
+	background: #173e48;
 	font-family: Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 14px;
@@ -125,7 +125,7 @@ textarea {
 }
 
 #box3 .shortcut {
-	color: #f5c2e0;
+	color: #c4dce3;
 	font-weight: normal;
 }
 
@@ -160,12 +160,12 @@ textarea {
 }
 
 #messages li {
-	background:rgba(107,61,122,0.8);
+	background:rgba(23,62,72,0.8);
 	margin:0 auto;
 	list-style:none;
 }
 
 #messages li.error {
-	background:rgba(139,28,98,0.8);
+	background:rgba(102,8,0,0.8);
 }
 
