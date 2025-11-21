@@ -126,7 +126,7 @@ class Haste {
 
   // Show the full key
   fullKey() {
-    this.configureKey(["new", "duplicate", "twitter", "raw"]);
+    this.configureKey(["new", "duplicate", "twitter", "raw", "copy"]);
   }
 
   // Set the key up for certain things to be enabled
@@ -293,6 +293,25 @@ class Haste {
         },
       },
       {
+        $where: $("#box2 .copy"),
+        label: "Copy to Clipboard",
+        shortcut: function (evt) {
+          return evt.ctrlKey && evt.shiftKey && evt.keyCode === 67;
+        },
+        shortcutDescription: "control + shift + c",
+        action: () => {
+          const code = this.doc.data;
+          navigator.clipboard
+            .writeText(code)
+            .then(() => {
+              this.showMessage("Copied to clipboard!", "info");
+            })
+            .catch(() => {
+              this.showMessage("Failed to copy", "error");
+            });
+        },
+      },
+      {
         $where: $("#box2 .twitter"),
         label: "Twitter",
         shortcut: (evt) => {
@@ -357,6 +376,7 @@ class Haste {
 Haste.extensionMap = {
   rb: "ruby",
   py: "python",
+  pyw: "python",
   pl: "perl",
   php: "php",
   scala: "scala",
@@ -365,7 +385,13 @@ Haste.extensionMap = {
   html: "xml",
   htm: "xml",
   css: "css",
+  scss: "scss",
+  sass: "scss",
+  less: "less",
   js: "javascript",
+  jsx: "javascript",
+  mjs: "javascript",
+  cjs: "javascript",
   vbs: "vbscript",
   lua: "lua",
   pas: "delphi",
@@ -389,6 +415,10 @@ Haste.extensionMap = {
   coffee: "coffee",
   json: "javascript",
   swift: "swift",
+  kt: "kotlin",
+  kts: "kotlin",
+  ts: "typescript",
+  tsx: "typescript",
 };
 
 ///// Tab behavior in the textarea - 2 spaces per tab

@@ -34,7 +34,7 @@ textarea {
   background: transparent;
   border: 0;
   color: var(--text-primary);
-  padding: 20px 20px 20px 60px; /* Space for line numbers */
+  padding: 100px 20px 20px 60px; /* Increased top padding for header */
   width: 100%;
   height: 100%;
   font-family: var(--font-mono);
@@ -50,7 +50,7 @@ textarea {
   color: var(--text-secondary);
   z-index: 10;
   position: absolute;
-  top: 20px;
+  top: 100px; /* Increased top position */
   left: 0;
   width: 40px;
   font-size: 14px;
@@ -63,7 +63,7 @@ textarea {
 
 /* code box when locked */
 #box {
-  padding: 20px 20px 20px 60px;
+  padding: 100px 20px 20px 60px; /* Increased top padding */
   margin: 0;
   width: 100%;
   height: 100%;
@@ -83,37 +83,46 @@ textarea {
   font-family: var(--font-mono);
 }
 
-/* key / sidebar */
+/* key / sidebar -> Floating Header */
 #key {
   position: fixed;
   top: 20px;
-  right: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 24px;
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--sidebar-border);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  width: auto;
 }
 
 #box1 {
-  padding: 10px;
+  padding: 0;
   text-align: center;
-  background: var(--sidebar-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--sidebar-border);
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: none;
+  backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 #box2 {
-  background: var(--sidebar-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--sidebar-border);
-  border-radius: 12px;
-  padding: 10px;
+  background: none;
+  backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex-direction: row;
+  gap: 12px;
+  box-shadow: none;
 }
 
 #box1 a.logo {
@@ -140,7 +149,7 @@ textarea {
 #box2 .function {
   width: 40px;
   height: 40px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
@@ -152,6 +161,10 @@ textarea {
   cursor: pointer;
   border: 1px solid transparent;
   background-image: none;
+}
+
+#box2 .function.enabled {
+  display: flex;
 }
 
 #box2 .function:hover {
@@ -177,18 +190,31 @@ textarea {
 #box3 {
   background: var(--accent-pink);
   color: white;
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: 6px;
   font-size: 12px;
   position: absolute;
-  right: 70px; /* Position to the left of the sidebar */
-  top: 50%; /* This needs dynamic positioning or fixed */
-  /* The original JS handles showing/hiding box3. 
-       I'll style it to look like a tooltip. */
+  top: 100%; /* Position below the header */
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 12px;
+  right: auto; /* Reset right positioning */
   display: none;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   pointer-events: none;
+  z-index: 1001;
+}
+
+#box3::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 4px 4px 4px;
+  border-style: solid;
+  border-color: transparent transparent var(--accent-pink) transparent;
 }
 
 #box3 .label {
