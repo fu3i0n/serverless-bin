@@ -118,11 +118,23 @@ textarea {
 
 #box1 a.logo {
   display: block;
-  background: url(logo.png) no-repeat center;
-  background-size: contain;
-  width: 100px;
-  height: 40px;
-  filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.5));
+  background: none;
+  width: auto;
+  height: auto;
+  font-family: "Pacifico", cursive;
+  font-size: 24px;
+  color: var(--accent-pink);
+  text-decoration: none;
+  background: linear-gradient(to right, #ff69b4, #bd93f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 2px rgba(255, 105, 180, 0.3));
+  transition: transform 0.2s ease;
+}
+
+#box1 a.logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.6));
 }
 
 #box2 .function {
@@ -131,90 +143,51 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  font-weight: bold;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  font-size: 18px;
   text-decoration: none;
   cursor: pointer;
   border: 1px solid transparent;
-}
-
-/* Replace sprite with text or modern icons if possible, but keeping sprite logic for compatibility if needed. 
-   However, user wants "best of best". The old sprite logic is rigid. 
-   I will try to keep the sprite for now but style the container better. 
-   Actually, the sprite logic is in JS/CSS background positions. 
-   I'll keep the background image but add hover effects. */
-
-#box2 .function {
-  background-image: url(function-icons.png);
-  background-repeat: no-repeat;
+  background-image: none;
 }
 
 #box2 .function:hover {
   background-color: var(--accent-pink);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.4);
+  color: white;
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 6px 16px rgba(255, 105, 180, 0.5);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Adjust background positions for the new size/layout if needed, 
-   but the original CSS used specific pixel offsets. 
-   I'll try to preserve the original offsets but center them in the new larger buttons. */
-
-#box2 .function.save {
-  background-position: -5px top;
-}
-#box2 .function.enabled.save {
-  background-position: -5px center;
-}
-#box2 .function.enabled.save:hover {
-  background-position: -5px bottom;
+#box2 .function:active {
+  transform: translateY(-1px) scale(0.95);
 }
 
-#box2 .function.new {
-  background-position: -42px top;
-}
-#box2 .function.enabled.new {
-  background-position: -42px center;
-}
-#box2 .function.enabled.new:hover {
-  background-position: -42px bottom;
-}
-
-#box2 .function.duplicate {
-  background-position: -79px top;
-}
-#box2 .function.enabled.duplicate {
-  background-position: -79px center;
-}
-#box2 .function.enabled.duplicate:hover {
-  background-position: -79px bottom;
-}
-
-#box2 .function.raw {
-  background-position: -116px top;
-}
-#box2 .function.enabled.raw {
-  background-position: -116px center;
-}
-#box2 .function.enabled.raw:hover {
-  background-position: -116px bottom;
-}
-
-#box2 .function.twitter {
-  background-position: -153px top;
-}
-#box2 .function.enabled.twitter {
-  background-position: -153px center;
-}
+/* Remove old sprite positioning */
+#box2 .function.save,
+#box2 .function.enabled.save,
+#box2 .function.enabled.save:hover,
+#box2 .function.new,
+#box2 .function.enabled.new,
+#box2 .function.enabled.new:hover,
+#box2 .function.duplicate,
+#box2 .function.enabled.duplicate,
+#box2 .function.enabled.duplicate:hover,
+#box2 .function.raw,
+#box2 .function.enabled.raw,
+#box2 .function.enabled.raw:hover,
+#box2 .function.twitter,
+#box2 .function.enabled.twitter,
 #box2 .function.enabled.twitter:hover {
-  background-position: -153px bottom;
+  background-position: 0 0;
 }
 
 #box2 .button-picture {
   border-width: 0;
-  font-size: 0; /* Hide text */
+  /* font-size: 0; Removed to allow icon font size */
 }
 
 #pointer {

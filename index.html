@@ -6,8 +6,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Pacifico&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" type="text/css" href="daisy_theme.css" />
     <link rel="stylesheet" type="text/css" href="application.css" />
@@ -61,16 +65,27 @@
     <div id="key">
       <div id="pointer" style="display: none"></div>
       <div id="box1">
-        <a href="/README.md" class="logo"></a>
+        <a href="/README.md" class="logo">DaisyPaste</a>
       </div>
       <div id="box2">
-        <button class="save function button-picture">Save</button>
-        <button class="new function button-picture">New</button>
-        <button class="duplicate function button-picture">
-          Duplicate & Edit
+        <button class="save function button-picture" aria-label="Save">
+          <i class="fas fa-save"></i>
         </button>
-        <button class="raw function button-picture">Just Text</button>
-        <button class="twitter function button-picture">Twitter</button>
+        <button class="new function button-picture" aria-label="New">
+          <i class="fas fa-plus"></i>
+        </button>
+        <button
+          class="duplicate function button-picture"
+          aria-label="Duplicate & Edit"
+        >
+          <i class="fas fa-pen"></i>
+        </button>
+        <button class="raw function button-picture" aria-label="Just Text">
+          <i class="fas fa-file-alt"></i>
+        </button>
+        <button class="twitter function button-picture" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+        </button>
       </div>
       <div id="box3" style="display: none">
         <div class="label"></div>
