@@ -2,11 +2,7 @@ export async function onRequestPost(context) {
   const body = await context.request.text();
 
   // generate new uuid
-  const uuid =
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
-
-  console.log(body);
+  const uuid = crypto.randomUUID();
 
   await context.env.FILES_KV.put(uuid, body);
 

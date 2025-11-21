@@ -1,0 +1,73 @@
+/*
+  DaisyPaste Theme
+  Based on Dracula Theme
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: transparent;
+  color: #f8f8f2;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #b39ddb; /* Light purple for comments */
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: #ff79c6; /* Pink */
+}
+
+.hljs-function .hljs-keyword {
+  color: #ff79c6;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-name,
+.hljs-type,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-variable {
+  color: #f1fa8c; /* Yellow */
+}
+
+.hljs-comment .hljs-doctag {
+  color: #6272a4;
+}
+
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: #8be9fd; /* Cyan */
+}
+
+.hljs-number {
+  color: #bd93f9; /* Purple */
+}
+
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: #8be9fd; /* Cyan */
+}
+
+.hljs-attr {
+  color: #50fa7b; /* Green */
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}

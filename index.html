@@ -1,19 +1,26 @@
 <html>
   <head>
-    <title>hastebin</title>
+    <title>DaisyPaste</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="solarized_dark.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="daisy_theme.css" />
     <link rel="stylesheet" type="text/css" href="application.css" />
 
     <script
       type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
     ></script>
     <script
       type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"
     ></script>
-    <script type="text/javascript" src="application.min.js"></script>
+    <script type="text/javascript" src="application.js"></script>
 
     <meta name="robots" content="noindex,nofollow" />
 
@@ -42,7 +49,7 @@
       }, 1000);
       // Construct app and load initial path
       $(function () {
-        app = new haste("hastebin", { twitter: true });
+        app = new Haste("DaisyPaste", { twitter: true });
         handlePop({ target: window });
       });
     </script>
