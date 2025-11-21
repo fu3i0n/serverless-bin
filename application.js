@@ -372,6 +372,24 @@ class Haste {
   }
 }
 
+// Sync scrolling between textarea/box and line numbers
+$(function () {
+  const $linenos = $("#linenos");
+  const $textarea = $("textarea");
+  const $box = $("#box");
+
+  const syncScroll = function () {
+    const scrollTop = $(this).scrollTop();
+    $linenos.css("transform", `translateY(-${scrollTop}px)`);
+    // Sync the other box if needed (though usually only one is visible)
+    if (this === $textarea[0]) $box.scrollTop(scrollTop);
+    else $textarea.scrollTop(scrollTop);
+  };
+
+  $textarea.on("scroll", syncScroll);
+  $box.on("scroll", syncScroll);
+});
+
 // Map of common extensions
 Haste.extensionMap = {
   rb: "ruby",
