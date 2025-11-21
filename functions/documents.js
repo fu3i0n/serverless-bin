@@ -11,6 +11,11 @@ export async function onRequestPost(context) {
       success: true,
       data: body,
       key: uuid,
-    })
+    }),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
   );
 }

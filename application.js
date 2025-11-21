@@ -61,7 +61,7 @@ class HasteDocument {
       type: "post",
       data: data,
       dataType: "json",
-      contentType: "application/json; charset=utf-8",
+      contentType: "text/plain; charset=utf-8",
       success: (res) => {
         this.locked = true;
         this.key = res.key;

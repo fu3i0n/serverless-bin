@@ -7,6 +7,12 @@ export async function onRequest(context) {
     JSON.stringify({
       id: context.params.id,
       data,
-    })
+    }),
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=31536000, immutable",
+      },
+    }
   );
 }

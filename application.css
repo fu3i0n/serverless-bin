@@ -13,6 +13,11 @@
   --font-mono: "Fira Code", "Consolas", "Monaco", "Andale Mono", monospace;
 }
 
+::selection {
+  background: var(--accent-pink);
+  color: white;
+}
+
 body {
   background: linear-gradient(
     135deg,
@@ -25,8 +30,26 @@ body {
   padding: 0;
   height: 100vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: row;
+}
+
+#container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+  margin: 0 auto;
+  animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* textarea */
@@ -273,4 +296,37 @@ textarea {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  #container {
+    padding: 0 20px;
+  }
+
+  #key {
+    width: 90%;
+    justify-content: center;
+    padding: 10px;
+    gap: 10px;
+    top: 10px;
+  }
+
+  #box2 {
+    gap: 8px;
+  }
+
+  #box2 .function {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  textarea,
+  #box {
+    padding-top: 120px; /* More space for header on mobile */
+  }
+
+  #linenos {
+    top: 120px;
+  }
 }
