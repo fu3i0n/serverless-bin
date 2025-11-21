@@ -11,6 +11,8 @@
   --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   --font-mono: "Fira Code", "Consolas", "Monaco", "Andale Mono", monospace;
+  --editor-width: 900px;
+  --editor-gutter: calc(50vw - (var(--editor-width) / 2));
 }
 
 ::selection {
@@ -35,12 +37,22 @@ body {
 #container {
   position: relative;
   width: 100%;
-  max-width: 1000px;
   height: 100%;
-  margin: 0 auto;
+  animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#bg-layer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--editor-width);
+  max-width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 0;
 }
 
 @keyframes fadeIn {
@@ -59,7 +71,8 @@ textarea {
   background: transparent;
   border: 0;
   color: var(--text-primary);
-  padding: 100px 20px 20px 60px; /* Fixed padding */
+  padding: 100px 20px 20px calc(max(0px, var(--editor-gutter)) + 60px); /* Centered with gutter */
+  padding-right: max(20px, var(--editor-gutter));
   width: 100%;
   height: 100%;
   font-family: var(--font-mono);
@@ -76,7 +89,7 @@ textarea {
   z-index: 10;
   position: absolute;
   top: 100px; /* Increased top position */
-  left: 0;
+  left: max(0px, var(--editor-gutter)); /* Centered with gutter */
   width: 40px;
   font-size: 14px;
   line-height: 1.5;
@@ -91,7 +104,8 @@ textarea {
 
 /* code box when locked */
 #box {
-  padding: 100px 20px 20px 60px; /* Fixed padding */
+  padding: 100px 20px 20px calc(max(0px, var(--editor-gutter)) + 60px); /* Centered with gutter */
+  padding-right: max(20px, var(--editor-gutter));
   margin: 0;
   width: 100%;
   height: 100%;
