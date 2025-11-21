@@ -96,10 +96,6 @@ class Haste {
     this.options = options;
     this.configureShortcuts();
     this.configureButtons();
-    // If twitter is disabled, hide the button
-    if (!options.twitter) {
-      $("#box2 .twitter").hide();
-    }
   }
 
   // Set the page title - include the appName
@@ -126,7 +122,7 @@ class Haste {
 
   // Show the full key
   fullKey() {
-    this.configureKey(["new", "duplicate", "twitter", "raw", "copy"]);
+    this.configureKey(["new", "duplicate", "raw", "copy"]);
   }
 
   // Set the key up for certain things to be enabled
@@ -285,11 +281,13 @@ class Haste {
         $where: $("#box2 .raw"),
         label: "Just Text",
         shortcut: function (evt) {
-          return evt.ctrlKey && evt.shiftKey && evt.keyCode === 82;
+          return evt.ctrlKey && evt.altKey && evt.keyCode === 82;
         },
-        shortcutDescription: "control + shift + r",
+        shortcutDescription: "control + alt + r",
         action: () => {
-          window.location.href = "/raw/" + this.doc.key;
+          if (this.doc.key) {
+            window.location.href = "/raw/" + this.doc.key;
+          }
         },
       },
       {
@@ -301,33 +299,20 @@ class Haste {
         shortcutDescription: "control + shift + c",
         action: () => {
           const code = this.doc.data;
+          const $icon = $("#box2 .copy i");
           navigator.clipboard
             .writeText(code)
             .then(() => {
               this.showMessage("Copied to clipboard!", "info");
+              // Visual feedback
+              $icon.removeClass("fa-copy").addClass("fa-check");
+              setTimeout(() => {
+                $icon.removeClass("fa-check").addClass("fa-copy");
+              }, 2000);
             })
             .catch(() => {
               this.showMessage("Failed to copy", "error");
             });
-        },
-      },
-      {
-        $where: $("#box2 .twitter"),
-        label: "Twitter",
-        shortcut: (evt) => {
-          return (
-            this.options.twitter &&
-            this.doc.locked &&
-            evt.shiftKey &&
-            evt.ctrlKey &&
-            evt.keyCode == 84
-          );
-        },
-        shortcutDescription: "control + shift + t",
-        action: () => {
-          window.open(
-            "https://twitter.com/share?url=" + encodeURI(window.location.href)
-          );
         },
       },
     ];
@@ -363,9 +348,11 @@ class Haste {
       for (let i = 0; i < this.buttons.length; i++) {
         button = this.buttons[i];
         if (button.shortcut && button.shortcut(evt)) {
-          evt.preventDefault();
-          button.action();
-          return;
+          if (button.$where.hasClass("enabled")) {
+            evt.preventDefault();
+            button.action();
+            return;
+          }
         }
       }
     });
@@ -445,16 +432,8 @@ $(function () {
     if (evt.keyCode === 9) {
       evt.preventDefault();
       const myValue = "  ";
-      // http://stackoverflow.com/questions/946534/insert-text-into-textarea-with-jquery
-      // For browsers like Internet Explorer
-      if (document.selection) {
-        this.focus();
-        const sel = document.selection.createRange();
-        sel.text = myValue;
-        this.focus();
-      }
-      // Mozilla and Webkit
-      else if (this.selectionStart || this.selectionStart == "0") {
+
+      if (this.selectionStart || this.selectionStart == "0") {
         const startPos = this.selectionStart;
         const endPos = this.selectionEnd;
         const scrollTop = this.scrollTop;

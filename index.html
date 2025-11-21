@@ -10,6 +10,10 @@
       content="The most aesthetic pastebin for 2025."
     />
     <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -60,7 +64,7 @@
       }, 1000);
       // Construct app and load initial path
       $(function () {
-        app = new Haste("DaisyPaste", { twitter: true });
+        app = new Haste("DaisyPaste", {});
         handlePop({ target: window });
       });
     </script>
@@ -71,7 +75,9 @@
 
     <div id="key">
       <div id="box1">
-        <a href="/README.md" class="logo">DaisyPaste</a>
+        <a href="/README.md" class="logo" aria-label="DaisyPaste Home"
+          >DaisyPaste</a
+        >
       </div>
       <div id="box2">
         <button class="save function button-picture" aria-label="Save">
@@ -94,9 +100,6 @@
           aria-label="Copy to Clipboard"
         >
           <i class="fas fa-copy"></i>
-        </button>
-        <button class="twitter function button-picture" aria-label="Twitter">
-          <i class="fab fa-twitter"></i>
         </button>
       </div>
       <div id="box3" style="display: none">
