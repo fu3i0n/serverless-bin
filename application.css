@@ -38,6 +38,8 @@ body {
   max-width: 1000px;
   height: 100%;
   margin: 0 auto;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -57,7 +59,7 @@ textarea {
   background: transparent;
   border: 0;
   color: var(--text-primary);
-  padding: 100px 20px 20px 60px; /* Increased top padding for header */
+  padding: 100px 20px 20px 60px; /* Fixed padding */
   width: 100%;
   height: 100%;
   font-family: var(--font-mono);
@@ -82,11 +84,14 @@ textarea {
   text-align: right;
   opacity: 0.6;
   pointer-events: none;
+  border-right: 1px solid var(--sidebar-border);
+  padding-right: 10px;
+  box-sizing: content-box;
 }
 
 /* code box when locked */
 #box {
-  padding: 100px 20px 20px 60px; /* Increased top padding */
+  padding: 100px 20px 20px 60px; /* Fixed padding */
   margin: 0;
   width: 100%;
   height: 100%;
@@ -299,10 +304,6 @@ textarea {
 }
 
 @media (max-width: 768px) {
-  #container {
-    padding: 0 20px;
-  }
-
   #key {
     width: 90%;
     justify-content: center;
