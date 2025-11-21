@@ -166,28 +166,8 @@ textarea {
   transform: translateY(-1px) scale(0.95);
 }
 
-/* Remove old sprite positioning */
-#box2 .function.save,
-#box2 .function.enabled.save,
-#box2 .function.enabled.save:hover,
-#box2 .function.new,
-#box2 .function.enabled.new,
-#box2 .function.enabled.new:hover,
-#box2 .function.duplicate,
-#box2 .function.enabled.duplicate,
-#box2 .function.enabled.duplicate:hover,
-#box2 .function.raw,
-#box2 .function.enabled.raw,
-#box2 .function.enabled.raw:hover,
-#box2 .function.twitter,
-#box2 .function.enabled.twitter,
-#box2 .function.enabled.twitter:hover {
-  background-position: 0 0;
-}
-
 #box2 .button-picture {
   border-width: 0;
-  /* font-size: 0; Removed to allow icon font size */
 }
 
 #pointer {
